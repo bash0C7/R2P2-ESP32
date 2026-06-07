@@ -1,6 +1,6 @@
 idf_component_register(
-  SRCS "main.c"
-  REQUIRES picoruby-esp32
+  SRCS "main.c" "btstack_smoke.c"
+  REQUIRES picoruby-esp32 btstack
   PRIV_REQUIRES spi_flash
   INCLUDE_DIRS ""
 )

@@ -60,6 +60,21 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
   conf.gem core: 'picoruby-uart'
   conf.gem core: 'picoruby-pwm'
 
+  # device drivers (out-of-tree, standalone repos extracted from monorepo; github + tag pin).
+  # NOTE: picoruby LoadGems has no `tag:` keyword — pin a tag via `branch:`, which is passed
+  # to `git clone --branch <ref>` (git accepts tag names there). See load_gems.rb fromGit!.
+  conf.gem github: 'bash0C7/picoruby-ili9342',            branch: 'v0.1.0'
+  conf.gem github: 'bash0C7/picoruby-py32-io-expander',   branch: 'v0.1.0'
+  conf.gem github: 'bash0C7/picoruby-stackchan-led',      branch: 'v0.1.0'
+  conf.gem github: 'bash0C7/picoruby-stackchan-protocol', branch: 'v0.1.0'
+  conf.gem github: 'bash0C7/picoruby-scservo',            branch: 'v0.1.0'
+
+  # BLE (mirrored from working picoruby clone into nested R2P2 tree).
+  # Port .c files are compiled by the picoruby-esp32 idf component CMakeLists.txt
+  # to ensure they have access to ESP-IDF + BTstack include paths.
+  conf.gem gemdir: "#{__dir__}/../picoruby/mrbgems/picoruby-ble"
+  conf.gem gemdir: "#{__dir__}/../picoruby/mrbgems/picoruby-ble-uart"
+
   # others
   conf.gem core: 'picoruby-rmt'
   conf.gem core: 'picoruby-mbedtls'

@@ -14,6 +14,9 @@
 #include <mrubyc.h>
 #elif defined(PICORB_VM_MRUBY)
 #include "hal.h" // in picoruby-machine
+#ifndef picorb_hal_write
+#define picorb_hal_write hal_write // pre-rename picoruby HAL API (hal_write era)
+#endif
 #endif
 
 #include "mrb/main_task.c"

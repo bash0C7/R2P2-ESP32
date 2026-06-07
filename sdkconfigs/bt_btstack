@@ -1,0 +1,32 @@
+# BLE + BTstack host stack sdkconfig fragment (ESP-IDF v5.4 / ESP32-S3 / BLE only)
+
+CONFIG_BT_ENABLED=y
+CONFIG_BT_CONTROLLER_ENABLED=y
+CONFIG_BT_CONTROLLER_ONLY=y
+CONFIG_BT_BLUEDROID_ENABLED=n
+CONFIG_BT_NIMBLE_ENABLED=n
+
+# Controller
+CONFIG_BTDM_CTRL_MODE_BLE_ONLY=y
+CONFIG_BTDM_CTRL_HCI_MODE_VHCI=y
+CONFIG_BT_CTRL_HCI_TL_EFF=1
+CONFIG_BTDM_CTRL_BLE_MAX_CONN=4
+CONFIG_BTDM_BLE_SCAN_DUPL=y
+CONFIG_BT_RESERVE_DRAM=0xdb5c
+
+# SW coex disabled: BLE-only build, no WiFi concurrency, and the BT controller's
+# coex_schm_status_bit_clear_wrapper path triggers a ROM-side coex_schm_lock crash
+# on ESP32-S3 in this config (2026-05-15 finding).
+#
+# Only CONFIG_SW_COEXIST_ENABLE is set — this alone gates the bt.c #if guards
+# that contain the crashing coex_schm_status_bit_clear_wrapper path.
+# CONFIG_ESP_COEX_SW_COEXIST_ENABLE is just the new name of the same flag
+# (esp_coex/sdkconfig.rename) so setting both is redundant.
+# CONFIG_ESP_COEX_ENABLED is left at its hidden default (=y) so the coex
+# component is still built and coex_pre_init runs at boot for PHY setup.
+# Earlier we set =n on all three and the radio appeared to not transmit
+# (Mac scans never saw the advertise).
+CONFIG_SW_COEXIST_ENABLE=n
+
+# Smoke gate (Phase 0 only; remove or set to n for Phase 1+)
+CONFIG_BTSTACK_SMOKE=n

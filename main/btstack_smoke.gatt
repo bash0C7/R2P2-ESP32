@@ -1,0 +1,13 @@
+// btstack_smoke.gatt — Minimal GATT for Phase 0 smoke
+// One GAP service with device name + one custom service with a counter characteristic.
+
+PRIMARY_SERVICE, GAP_SERVICE
+CHARACTERISTIC, GAP_DEVICE_NAME, READ, "StackChan-bts"
+CHARACTERISTIC, GAP_APPEARANCE, READ, 0x0000
+
+PRIMARY_SERVICE, GATT_SERVICE
+CHARACTERISTIC, GATT_DATABASE_HASH, READ,
+
+// Custom counter service (UUID is arbitrary 128-bit, vendor-specific)
+PRIMARY_SERVICE, F00DBABE-1234-5678-1234-56789ABCDEF0
+CHARACTERISTIC, F00DBABE-1234-5678-1234-56789ABCDEF1, READ | NOTIFY | DYNAMIC,

@@ -1,0 +1,9 @@
+menu "StackChan BLE smoke (Phase 0 only)"
+    config BTSTACK_SMOKE
+        bool "Enable BTstack BLE peripheral smoke task"
+        default n
+        help
+            When enabled, app_main spawns a FreeRTOS task that brings up BTstack
+            and advertises 'StackChan-bts'. Used to verify ESP-IDF + BTstack
+            integration before PicoRuby BLE port is wired up. Remove for production.
+endmenu
