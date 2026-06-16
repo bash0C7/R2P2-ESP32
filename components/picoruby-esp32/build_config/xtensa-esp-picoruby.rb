@@ -64,6 +64,15 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
   conf.gem core: 'picoruby-ble'
   conf.gem core: 'picoruby-ble-uart'
 
+  # StackChan device drivers (standalone repos extracted from monorepo; tag-pinned).
+  # NOTE: picoruby LoadGems has no `tag:` keyword — pin a tag via `branch:`, which is
+  # passed to `git clone --branch <ref>` (git accepts tag names there).
+  # stackchan-led is NOT wired: it is inlined into stackchan-picoruby app/application.rb.
+  conf.gem github: 'bash0C7/picoruby-ili9342',            branch: 'v0.1.0'
+  conf.gem github: 'bash0C7/picoruby-py32-io-expander',   branch: 'v0.1.0'
+  conf.gem github: 'bash0C7/picoruby-stackchan-protocol', branch: 'v0.1.0'
+  conf.gem github: 'bash0C7/picoruby-scservo',            branch: 'v0.1.0'
+
   # others
   conf.gem core: 'picoruby-rmt'
   conf.gem core: 'picoruby-mbedtls'
