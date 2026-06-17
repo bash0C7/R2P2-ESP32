@@ -52,6 +52,10 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
   conf.gem core: 'picoruby-base64'
   conf.gem core: 'picoruby-yaml'
 
+  # Japanese bitmap font (JIS X 0208) for LCD subtitles; pulls picoruby-bdffont
+  # transitively. Backs picoruby-ili9342's draw_text glyph blitter.
+  conf.gem core: 'picoruby-shinonome'
+
   # peripherals
   conf.gem core: 'picoruby-gpio'
   conf.gem core: 'picoruby-i2c'
@@ -68,7 +72,7 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
   # NOTE: picoruby LoadGems has no `tag:` keyword — pin a tag via `branch:`, which is
   # passed to `git clone --branch <ref>` (git accepts tag names there).
   # stackchan-led is NOT wired: it is inlined into stackchan-picoruby app/application.rb.
-  conf.gem github: 'bash0C7/picoruby-ili9342',            branch: 'v0.1.0'
+  conf.gem github: 'bash0C7/picoruby-ili9342',            branch: 'stackchan-integration'  # moving integration ref (Phase 0 draw_text blitter); the others below stay tag-pinned
   conf.gem github: 'bash0C7/picoruby-py32-io-expander',   branch: 'v0.1.0'
   conf.gem github: 'bash0C7/picoruby-stackchan-protocol', branch: 'v0.1.0'
   conf.gem github: 'bash0C7/picoruby-scservo',            branch: 'v0.1.0'
