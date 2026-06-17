@@ -125,6 +125,14 @@ add_definitions(
   -DUSE_FAT_FLASH_DISK
   -DPICORB_PLATFORM_ESP32
   -DNDEBUG
+  # littlefs storage offset. picoruby-littlefs/ports/esp32/flash_hal.c (compiled
+  # here, in this component) hardcodes 0x00210000 (factory=2M) behind an
+  # #if !defined guard and does NOT read the partition table at runtime. factory
+  # is 4M in partitions.csv, so storage lives at 0x00410000 — override to match,
+  # or the runtime littlefs reads into the app partition and aborts at boot
+  # ("Corrupted dir pair"). Keep in sync with partitions.csv (factory offset
+  # 0x10000 + factory size).
+  -DLFS_FLASH_TARGET_OFFSET=0x00410000
 )
 
 set(PICORUBY_DIR ${COMPONENT_DIR}/picoruby)

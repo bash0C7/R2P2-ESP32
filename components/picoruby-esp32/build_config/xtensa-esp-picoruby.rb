@@ -12,14 +12,6 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
   conf.cc.flags << '-Wno-maybe-uninitialized'
   conf.cc.flags << '-mlongcalls'
 
-  # littlefs storage offset. picoruby-littlefs/ports/esp32/flash_hal.c hardcodes
-  # a default of 0x00210000 (factory=2M layout) and does NOT read the partition
-  # table at runtime. We raised factory to 4M in partitions.csv, so storage now
-  # lives at 0x00410000 — override the offset to match, or littlefs reads into
-  # the app partition and aborts on a "Corrupted dir pair" at boot. MUST stay in
-  # sync with partitions.csv (factory offset 0x10000 + factory size).
-  conf.cc.defines << 'LFS_FLASH_TARGET_OFFSET=0x00410000'
-
   conf.cc.defines << 'MRB_TICK_UNIT=10'
   conf.cc.defines << 'MRB_TIMESLICE_TICK_COUNT=1'
   conf.cc.defines << 'MRBC_CONVERT_CRLF=1'
