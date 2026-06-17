@@ -2,5 +2,8 @@
 # Note: if you have increased the bootloader size, make sure to update the offsets to avoid overlap
 nvs,      data, nvs,     0x9000,  0x6000,
 phy_init, data, phy,     0xf000,  0x1000,
-factory,  app,  factory, 0x10000, 2M,
+# factory raised 2M->4M: the picoruby-shinonome JIS X 0208 font tables (for LCD
+# subtitles) pushed the firmware past 2M. 16MB flash has ample room; storage
+# auto-follows at 0x410000. Headroom also covers near-term growth (Phase 4 audio).
+factory,  app,  factory, 0x10000, 4M,
 storage,  data, littlefs,       , 1M,
