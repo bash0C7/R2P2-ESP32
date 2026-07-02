@@ -73,7 +73,7 @@ idf_component_register(
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-ble/ports/esp32/ble.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-ble/ports/esp32/ble_peripheral.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-ble/ports/esp32/ble_central.c
-    ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-ble/ports/esp32/btstack_owner.c
+    ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-ble/ports/esp32/nimble_owner.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-mbedtls/ports/esp32/timing_alt.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-mbedtls/ports/common/cipher.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-mbedtls/ports/common/cmac.c
@@ -116,7 +116,7 @@ idf_component_register(
     nvs_flash
     esp_psram
     esp_driver_usb_serial_jtag
-    btstack
+    bt
 )
 
 add_definitions(
