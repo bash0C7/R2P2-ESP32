@@ -67,6 +67,10 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
   # BLE
   conf.gem core: 'picoruby-ble'
   conf.gem core: 'picoruby-ble-uart'
+  # StackChan BLE reboot workaround: thread-safe inbound bridge (BLEBridge).
+  # In-tree here (not the picoruby-ble-esp32-port PR branch) since it's
+  # StackChan-specific; see mrbgems/picoruby-ble-bridge/README.md.
+  conf.gem core: 'picoruby-ble-bridge'
 
   # StackChan device drivers (standalone repos extracted from monorepo; tag-pinned).
   # NOTE: picoruby LoadGems has no `tag:` keyword — pin a tag via `branch:`, which is
@@ -79,6 +83,8 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
 
   # others
   conf.gem core: 'picoruby-rmt'
+  # Generic I2S TX binding (esp_driver_i2s), StackChan speaker output.
+  conf.gem core: 'picoruby-i2s'
   conf.gem core: 'picoruby-mbedtls'
   conf.gem core: 'picoruby-socket'
   conf.gem core: 'picoruby-network'
