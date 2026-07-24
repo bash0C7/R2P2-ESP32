@@ -60,7 +60,6 @@ idf_component_register(
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-machine/ports/esp32/machine.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-machine/ports/common/machine.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-io-console/ports/esp32/io-console.c
-    ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-filesystem-fat/ports/esp32/flash_disk.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-littlefs/ports/esp32/flash_hal.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-env/ports/esp32/env.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-gpio/ports/esp32/gpio.c
@@ -98,7 +97,6 @@ idf_component_register(
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-machine/include
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-mbedtls/include
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-mbedtls/lib/mbedtls/include
-    ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-filesystem-fat/ports/esp32
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-littlefs/ports/esp32
     ${COMPONENT_DIR}/picoruby/mrbgems/mruby-compiler/include
     ${COMPONENT_DIR}/picoruby/mrbgems/mruby-compiler/lib/prism/include
@@ -125,7 +123,7 @@ idf_component_register(
 add_definitions(
   ${ADDITIONAL_DEFINITIONS}
   -DMRBC_CONVERT_CRLF=1
-  -DUSE_FAT_FLASH_DISK
+  -DESP32_PLATFORM
   -DPICORB_PLATFORM_ESP32
   -DNDEBUG
   # littlefs storage offset. picoruby-littlefs/ports/esp32/flash_hal.c (compiled
