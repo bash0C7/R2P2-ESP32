@@ -88,7 +88,6 @@ idf_component_register(
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-i2c/ports/esp32/i2c.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-uart/ports/esp32/uart.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-require/ports/esp32/platform.c
-    ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-ble-bridge/ports/esp32/ble_bridge_port.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-i2s/ports/esp32/i2s.c
   INCLUDE_DIRS
     ${COMPONENT_DIR}
@@ -163,13 +162,6 @@ add_prebuilt_library(
   REQUIRES ${COMPONENT_NAME}
 )
 target_link_libraries(${COMPONENT_LIB} PRIVATE libmruby)
-# StackChan BLE reboot workaround (picoruby-ble-bridge): redirect the fork's
-# BLE_write_data AND BLE_push_event (both touch mruby on the BTstack/NimBLE
-# host task, the heap-corruption drivers) to __wrap_* in ble_bridge_port.c.
-# INTERFACE so the flags reach the final firmware link via main's dependency
-# on this component. -u force-keeps the wrapper objects even if archive scan
-# order would drop them.
-target_link_libraries(${COMPONENT_LIB} INTERFACE "-Wl,--wrap=BLE_write_data" "-Wl,-u,__wrap_BLE_write_data" "-Wl,--wrap=BLE_push_event" "-Wl,-u,__wrap_BLE_push_event")
 if(CONFIG_ESP_WIFI_ENABLED AND DEFINED ENV{USE_WIFI})
   target_link_libraries(${COMPONENT_LIB} PRIVATE idf::esp_wifi)
 endif()
