@@ -1,11 +1,15 @@
 R2P2_ESP32_ROOT = File.dirname(File.expand_path(__FILE__))
 MRUBY_ROOT = File.join(R2P2_ESP32_ROOT, "components/picoruby-esp32/picoruby")
-$LOAD_PATH << File.join(MRUBY_ROOT, "lib")
+MRUBY_SUBMODULE = File.join(MRUBY_ROOT, "mrbgems/picoruby-mruby/lib/mruby")
+$LOAD_PATH << File.join(MRUBY_ROOT, "lib") << File.join(MRUBY_SUBMODULE, "lib")
 
 # load build systems
 require "mruby/core_ext"
 require "mruby/build"
 require "picoruby/build"
+
+# toolchain definitions live in the mruby submodule, not under MRUBY_ROOT/tasks
+Dir["#{MRUBY_SUBMODULE}/tasks/toolchains/*.rake"].each {|f| load f}
 
 # load configuration file
 MRUBY_CONFIG = MRuby::Build.mruby_config_path
