@@ -73,13 +73,13 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
   # passed to `git clone --branch <ref>` (git accepts tag names there).
   # The pure-Ruby stackchan-led / si12t gems are not wired here: the stackchan-picoruby
   # Rakefile concatenates their mrblib into app.mrb.
-  conf.gem github: 'bash0C7/picoruby-ili9342',            branch: 'claude/c-drawing-primitives'  # moving integration ref; the others below stay tag-pinned
+  conf.gem github: 'bash0C7/picoruby-ili9342',            branch: 'main'  # moving integration ref; the others below stay tag-pinned
   conf.gem github: 'bash0C7/picoruby-py32-io-expander',   branch: 'v0.1.0'
   conf.gem github: 'bash0C7/picoruby-stackchan-protocol', branch: 'v0.1.0'
   conf.gem github: 'bash0C7/picoruby-scservo',            branch: 'v0.1.0'
   # AW88298 speaker driver; mu-law decode is C. It lives in a sub dir of the application
   # repo, so a change to it has to be pushed to that branch before the firmware rebuild.
-  conf.gem github: 'bash0C7/stackchan-picoruby', branch: 'claude/picoruby-prompt-simplify-dmbyo6', path: 'mrbgems/picoruby-aw88298'
+  conf.gem github: 'bash0C7/stackchan-picoruby', branch: 'main', path: 'mrbgems/picoruby-aw88298'
 
   # others
   conf.gem core: 'picoruby-rmt'
