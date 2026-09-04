@@ -39,6 +39,7 @@ MRuby::CrossBuild.new("esp32-femtoruby") do |conf|
   conf.gem core: 'picoruby-adc'
   conf.gem core: 'picoruby-uart'
   conf.gem core: 'picoruby-pwm'
+  conf.gem core: 'picoruby-irq'
 
   # others
   conf.gem core: 'picoruby-esp32'
