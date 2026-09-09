@@ -23,6 +23,7 @@ if(${PICORB_VM} STREQUAL "mruby")
     -DPICORB_ALLOC_ESTALLOC
     -DPICORB_ALLOC_ALIGN=8
     -DPICORB_VM_MRUBY
+    -DMRB_USE_TASK_SCHEDULER
   )
 else()
   file(MAKE_DIRECTORY ${COMPONENT_DIR}/picoruby/build/esp32-femtoruby/mrbgems)
@@ -66,6 +67,7 @@ idf_component_register(
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-littlefs/ports/esp32/flash_hal.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-env/ports/esp32/env.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-gpio/ports/esp32/gpio.c
+    ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-irq/ports/esp32/irq.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-adc/ports/esp32/adc.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-spi/ports/esp32/spi.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-rng/ports/esp32/rng.c
