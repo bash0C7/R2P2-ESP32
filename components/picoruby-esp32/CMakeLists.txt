@@ -103,6 +103,7 @@ idf_component_register(
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-littlefs/ports/esp32
     ${COMPONENT_DIR}/picoruby/mrbgems/mruby-compiler/include
     ${COMPONENT_DIR}/picoruby/mrbgems/mruby-compiler/lib/prism/include
+    ${COMPONENT_DIR}/picoruby/build/prism/include
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-ble/ports/esp32
     ${ADDITIONAL_INCLUDE_DIRS}
   PRIV_REQUIRES
@@ -165,6 +166,7 @@ target_include_directories(
   PRIVATE
     ${COMPONENT_DIR}/picoruby/mrbgems/mruby-compiler/include
     ${COMPONENT_DIR}/picoruby/mrbgems/mruby-compiler/lib/prism/include
+    ${COMPONENT_DIR}/picoruby/build/prism/include
     ${ADDITIONAL_INCLUDE_DIRS}
 )
 
