@@ -25,6 +25,10 @@ jobs:
       - name: Bundle install
         run: bundle install
         working-directory: ./components/picoruby-esp32/picoruby
+      - name: Probe MRC_PRISM_ARENA_BLOCK = 4 KiB
+        run: |
+            sed -i 's|#define MRC_PRISM_ARENA_BLOCK (64 \* 1024)|#define MRC_PRISM_ARENA_BLOCK (4 * 1024)|' components/picoruby-esp32/picoruby/mrbgems/mruby-compiler/src/ccontext.c
+            grep -n 'MRC_PRISM_ARENA_BLOCK (' components/picoruby-esp32/picoruby/mrbgems/mruby-compiler/src/ccontext.c
       - name: Build PicoRuby
         run: rake
         working-directory: ./components/picoruby-esp32/picoruby
