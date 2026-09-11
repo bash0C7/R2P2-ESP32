@@ -34,4 +34,4 @@ jobs:
           esp_idf_version: v5.5.4
           target: esp32s3
           path: '.'
-          command: HEAP_SIZE=262144 bash scripts/qemu_boot_check.sh ${{ matrix.vm_flag }}
+          command: HEAP_SIZE=327680 bash scripts/qemu_boot_check.sh ${{ matrix.vm_flag }}
