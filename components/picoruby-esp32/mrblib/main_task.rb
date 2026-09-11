@@ -45,4 +45,6 @@ begin
   $shell.start
 rescue => e
   puts "#{e.message} (#{e.class})"
+rescue Exception => e
+  puts "FATAL2: #{e.message} (#{e.class})"
 end

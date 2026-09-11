@@ -1,0 +1,2 @@
+source /Users/bash/dev/src/github.com/bash0C7/R2P2-ESP32/build-q-ours/bootloader/gdbinit/symbols
+source /Users/bash/dev/src/github.com/bash0C7/R2P2-ESP32/build-q-ours/bootloader/gdbinit/connect

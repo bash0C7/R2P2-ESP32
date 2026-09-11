@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+/Users/bash/dev/src/github.com/bash0C7/R2P2-ESP32/build-q-r2p2_master_pin/CMakeFiles/bootloader
+/Users/bash/dev/src/github.com/bash0C7/R2P2-ESP32/build-q-r2p2_master_pin/CMakeFiles/bootloader.rule
+/Users/bash/dev/src/github.com/bash0C7/R2P2-ESP32/build-q-r2p2_master_pin/CMakeFiles/bootloader-complete.rule
+/Users/bash/dev/src/github.com/bash0C7/R2P2-ESP32/build-q-r2p2_master_pin/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/Users/bash/dev/src/github.com/bash0C7/R2P2-ESP32/build-q-r2p2_master_pin/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/Users/bash/dev/src/github.com/bash0C7/R2P2-ESP32/build-q-r2p2_master_pin/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/Users/bash/dev/src/github.com/bash0C7/R2P2-ESP32/build-q-r2p2_master_pin/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/Users/bash/dev/src/github.com/bash0C7/R2P2-ESP32/build-q-r2p2_master_pin/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/Users/bash/dev/src/github.com/bash0C7/R2P2-ESP32/build-q-r2p2_master_pin/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/Users/bash/dev/src/github.com/bash0C7/R2P2-ESP32/build-q-r2p2_master_pin/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

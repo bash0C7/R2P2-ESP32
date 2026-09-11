@@ -1,0 +1,28 @@
+espefuse.py v4.11.0
+WARNING: Pre-connection option "no_reset" was selected. Connection may fail if the chip is not in bootloader or flasher stub mode.
+Note: It's not possible to reset the chip over a TCP socket. Automatic resetting to bootloader has been disabled, reset the chip manually.
+Connecting...
+Device PID identification is only supported on COM and /dev/ serial ports.
+
+
+=== Run "burn_efuse" command ===
+The efuses to burn:
+  from BLOCK2
+     - BLK_VERSION_MAJOR
+    ATTENTION! This BLOCK uses NOT the NONE coding scheme and after 'BURN', these efuses can not be burned in the feature:
+               ['OPTIONAL_UNIQUE_ID']
+
+Burning efuses (see 'ATTENTION!' above):
+
+    - 'BLK_VERSION_MAJOR' (BLK_VERSION_MAJOR of BLOCK2) 0b00 -> 0b01
+
+
+Check all blocks for burn...
+idx, BLOCK_NAME,          Conclusion
+[02] BLOCK_SYS_DATA       is empty, will burn the new value
+. 
+This is an irreversible operation!
+BURN BLOCK2  - OK (write block == read block)
+Reading updated efuses...
+Checking efuses...
+Successful
