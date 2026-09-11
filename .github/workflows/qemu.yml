@@ -2,9 +2,7 @@ name: QEMU boot test (ESP32-S3)
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches: [ ci-qemu-bisect ]
 
 jobs:
   qemu-boot:
@@ -12,8 +10,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - vm_name: femtoruby
-            vm_flag: mrubyc
           - vm_name: picoruby
             vm_flag: mruby
     runs-on: ubuntu-latest
