@@ -67,7 +67,6 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
   # BLE
   conf.gem core: 'picoruby-ble'
   conf.gem core: 'picoruby-ble-uart'
-  # dRuby over BLE (stackchan-picoruby's picoruby-drb-ble, bundled into app.mrb)
   conf.gem core: 'picoruby-drb'
 
   # StackChan device drivers (standalone repos extracted from monorepo; tag-pinned).
@@ -79,14 +78,9 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
   conf.gem github: 'bash0C7/picoruby-py32-io-expander',   branch: 'v0.1.0'
   conf.gem github: 'bash0C7/picoruby-stackchan-protocol', branch: 'v0.1.0'
   conf.gem github: 'bash0C7/picoruby-scservo',            branch: 'v0.1.0'
-  # AOT kernels (stackchan-picoruby aot/, spinel -> suppify) and picoruby-multicore,
-  # which runs some of them on core 1. stackchan-picoruby's tools/aot build both and
-  # pass them in; without STACKCHAN_AOT_GEMS this is the firmware without them.
-  # CMakeLists.txt adds multicore's ESP32 port source from the same env.
-  if ENV['STACKCHAN_AOT_GEMS']
-    conf.gem gemdir: ENV.fetch('STACKCHAN_MULTICORE_DIR')
-    ENV['STACKCHAN_AOT_GEMS'].split(':').each { |dir| conf.gem gemdir: dir }
-  end
+  # picoruby-multicore and the AOT kernel gems stackchan-picoruby's tools/aot generate.
+  conf.gem gemdir: ENV.fetch('STACKCHAN_MULTICORE_DIR')
+  ENV.fetch('STACKCHAN_AOT_GEMS').split(':').each { |dir| conf.gem gemdir: dir }
 
   # others
   conf.gem core: 'picoruby-rmt'

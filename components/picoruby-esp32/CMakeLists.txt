@@ -53,17 +53,9 @@ if(DEFINED ENV{PICORB_TASK_STACK_SIZE})
   list(APPEND ADDITIONAL_DEFINITIONS -DPICORB_TASK_STACK_SIZE=$ENV{PICORB_TASK_STACK_SIZE})
 endif()
 
-# picoruby-multicore's ESP32 port (the worker task on core 1) needs the IDF
-# include paths, so it is compiled here rather than into libmruby; its gem comes
-# from STACKCHAN_MULTICORE_DIR (see build_config/xtensa-esp-picoruby.rb).
-set(STACKCHAN_EXTRA_SRCS "")
-if(DEFINED ENV{STACKCHAN_MULTICORE_DIR})
-  list(APPEND STACKCHAN_EXTRA_SRCS $ENV{STACKCHAN_MULTICORE_DIR}/ports/esp32/multicore.c)
-endif()
-
 idf_component_register(
   SRCS
-    ${STACKCHAN_EXTRA_SRCS}
+    $ENV{STACKCHAN_MULTICORE_DIR}/ports/esp32/multicore.c
     ${COMPONENT_DIR}/picoruby-esp32.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-esp32/ports/esp32.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-machine/ports/esp32/machine.c
