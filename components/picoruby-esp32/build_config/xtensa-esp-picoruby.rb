@@ -67,19 +67,26 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
   # BLE
   conf.gem core: 'picoruby-ble'
   conf.gem core: 'picoruby-ble-uart'
+  # dRuby over BLE (stackchan-picoruby's picoruby-drb-ble, bundled into app.mrb)
+  conf.gem core: 'picoruby-drb'
 
   # StackChan device drivers (standalone repos extracted from monorepo; tag-pinned).
   # NOTE: picoruby LoadGems has no `tag:` keyword — pin a tag via `branch:`, which is
   # passed to `git clone --branch <ref>` (git accepts tag names there).
   # The pure-Ruby stackchan-led / si12t gems are not wired here: the stackchan-picoruby
   # Rakefile concatenates their mrblib into app.mrb.
-  conf.gem github: 'bash0C7/picoruby-ili9342',            branch: 'main'  # moving integration ref; the others below stay tag-pinned
+  conf.gem github: 'bash0C7/picoruby-ili9342',            branch: 'claude/aot-glyph16'  # moving integration ref; the others below stay tag-pinned
   conf.gem github: 'bash0C7/picoruby-py32-io-expander',   branch: 'v0.1.0'
   conf.gem github: 'bash0C7/picoruby-stackchan-protocol', branch: 'v0.1.0'
   conf.gem github: 'bash0C7/picoruby-scservo',            branch: 'v0.1.0'
-  # AW88298 speaker driver; mu-law decode is C. It lives in a sub dir of the application
-  # repo, so a change to it has to be pushed to that branch before the firmware rebuild.
-  conf.gem github: 'bash0C7/stackchan-picoruby', branch: 'main', path: 'mrbgems/picoruby-aw88298'
+  # AOT kernels (stackchan-picoruby aot/, spinel -> suppify) and picoruby-multicore,
+  # which runs some of them on core 1. stackchan-picoruby's tools/aot build both and
+  # pass them in; without STACKCHAN_AOT_GEMS this is the firmware without them.
+  # CMakeLists.txt adds multicore's ESP32 port source from the same env.
+  if ENV['STACKCHAN_AOT_GEMS']
+    conf.gem gemdir: ENV.fetch('STACKCHAN_MULTICORE_DIR')
+    ENV['STACKCHAN_AOT_GEMS'].split(':').each { |dir| conf.gem gemdir: dir }
+  end
 
   # others
   conf.gem core: 'picoruby-rmt'
