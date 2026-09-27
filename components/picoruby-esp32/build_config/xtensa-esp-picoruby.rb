@@ -76,11 +76,11 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
   # Rakefile concatenates their mrblib into app.mrb.
   conf.gem github: 'bash0C7/picoruby-ili9342',            branch: 'claude/aot-glyph16'
   conf.gem github: 'bash0C7/picoruby-py32-io-expander',   branch: 'claude/simplify'
-  conf.gem github: 'bash0C7/picoruby-stackchan-protocol', branch: 'claude/simplify'
   conf.gem github: 'bash0C7/picoruby-scservo',            branch: 'claude/simplify'
-  # picoruby-multicore and the AOT kernel gems stackchan-picoruby's tools/aot generate.
+  # picoruby-multicore, the AOT kernel gems, and the StackChan protocol gem
+  # come from stackchan-picoruby's own tree (R2P2_GEM_DIRS).
   conf.gem gemdir: ENV.fetch('STACKCHAN_MULTICORE_DIR')
-  ENV.fetch('STACKCHAN_AOT_GEMS').split(':').each { |dir| conf.gem gemdir: dir }
+  ENV.fetch('R2P2_GEM_DIRS').split(':').each { |dir| conf.gem gemdir: dir }
 
   # others
   conf.gem core: 'picoruby-rmt'
