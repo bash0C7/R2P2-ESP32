@@ -74,10 +74,10 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
   # passed to `git clone --branch <ref>` (git accepts tag names there).
   # The pure-Ruby stackchan-led / si12t gems are not wired here: the stackchan-picoruby
   # Rakefile concatenates their mrblib into app.mrb.
-  conf.gem github: 'bash0C7/picoruby-ili9342',            branch: 'claude/aot-glyph16'  # moving integration ref; the others below stay tag-pinned
-  conf.gem github: 'bash0C7/picoruby-py32-io-expander',   branch: 'v0.1.0'
-  conf.gem github: 'bash0C7/picoruby-stackchan-protocol', branch: 'v0.1.0'
-  conf.gem github: 'bash0C7/picoruby-scservo',            branch: 'v0.1.0'
+  conf.gem github: 'bash0C7/picoruby-ili9342',            branch: 'claude/aot-glyph16'
+  conf.gem github: 'bash0C7/picoruby-py32-io-expander',   branch: 'claude/simplify'
+  conf.gem github: 'bash0C7/picoruby-stackchan-protocol', branch: 'claude/simplify'
+  conf.gem github: 'bash0C7/picoruby-scservo',            branch: 'claude/simplify'
   # picoruby-multicore and the AOT kernel gems stackchan-picoruby's tools/aot generate.
   conf.gem gemdir: ENV.fetch('STACKCHAN_MULTICORE_DIR')
   ENV.fetch('STACKCHAN_AOT_GEMS').split(':').each { |dir| conf.gem gemdir: dir }
