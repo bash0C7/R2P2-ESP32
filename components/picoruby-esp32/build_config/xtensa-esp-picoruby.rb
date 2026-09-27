@@ -78,7 +78,8 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
   conf.gem github: 'bash0C7/picoruby-py32-io-expander',   branch: 'claude/simplify'
   conf.gem github: 'bash0C7/picoruby-scservo',            branch: 'claude/simplify'
   # picoruby-multicore, the AOT kernel gems, and the StackChan protocol gem
-  # come from stackchan-picoruby's own tree (R2P2_GEM_DIRS).
+  # come from stackchan-picoruby's own tree: multicore via
+  # STACKCHAN_MULTICORE_DIR, the rest via R2P2_GEM_DIRS.
   conf.gem gemdir: ENV.fetch('STACKCHAN_MULTICORE_DIR')
   ENV.fetch('R2P2_GEM_DIRS').split(':').each { |dir| conf.gem gemdir: dir }
 
