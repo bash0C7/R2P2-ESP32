@@ -45,6 +45,12 @@ uint8_t heap_pool[HEAP_SIZE];
 
 #if defined(PICORB_VM_MRUBY)
 extern mrb_state *global_mrb; /* defined in mruby-compiler (ccontext.c) */
+
+static mrb_value
+machine_stack_high_water_mark(mrb_state *mrb, mrb_value self)
+{
+  return mrb_fixnum_value((mrb_int)uxTaskGetStackHighWaterMark(NULL));
+}
 #endif
 
 void
@@ -111,6 +117,8 @@ picoruby_esp32_task(void *pvParameters)
     mrb->exc = NULL;
   }
   global_mrb = mrb;
+  mrb_define_module_function(mrb, mrb_module_get(mrb, "Machine"), "stack_high_water_mark",
+                             machine_stack_high_water_mark, MRB_ARGS_NONE());
   mrc_irep *irep = mrb_read_irep(mrb, main_task);
   mrc_ccontext *cc = mrc_ccontext_new(mrb);
   mrb_value name = mrb_str_new_lit(mrb, "R2P2");
