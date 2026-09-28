@@ -40,6 +40,15 @@ else()
   )
 endif()
 
+if(DEFINED ENV{R2P2_BUILD_CONFIG})
+  set(MRUBY_CONFIG_STRING "$ENV{R2P2_BUILD_CONFIG}")
+endif()
+
+set(ADDITIONAL_SRCS "")
+if(DEFINED ENV{R2P2_EXTRA_SRCS})
+  string(REPLACE ":" ";" ADDITIONAL_SRCS "$ENV{R2P2_EXTRA_SRCS}")
+endif()
+
 if(CONFIG_ESP_WIFI_ENABLED AND DEFINED ENV{USE_WIFI})
   list(APPEND ADDITIONAL_DEFINITIONS -DUSE_WIFI)
   set(MRUBY_USE_WIFI $ENV{USE_WIFI})
@@ -55,8 +64,8 @@ endif()
 
 idf_component_register(
   SRCS
-    $ENV{STACKCHAN_MULTICORE_DIR}/ports/esp32/multicore.c
     ${COMPONENT_DIR}/picoruby-esp32.c
+    ${ADDITIONAL_SRCS}
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-esp32/ports/esp32.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-machine/ports/esp32/machine.c
     ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-machine/ports/common/machine.c

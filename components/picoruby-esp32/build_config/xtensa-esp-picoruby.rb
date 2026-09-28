@@ -52,10 +52,6 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
   conf.gem core: 'picoruby-base64'
   conf.gem core: 'picoruby-yaml'
 
-  # Japanese bitmap font (JIS X 0208) for LCD subtitles; pulls picoruby-bdffont
-  # transitively. Backs picoruby-ili9342's draw_text glyph blitter.
-  conf.gem core: 'picoruby-shinonome'
-
   # peripherals
   conf.gem core: 'picoruby-gpio'
   conf.gem core: 'picoruby-i2c'
@@ -66,26 +62,11 @@ MRuby::CrossBuild.new('esp32-picoruby') do |conf|
 
   # BLE
   conf.gem core: 'picoruby-ble'
-  conf.gem core: 'picoruby-ble-uart'
-  conf.gem core: 'picoruby-drb'
 
-  # StackChan device drivers (standalone repos extracted from monorepo; tag-pinned).
-  # NOTE: picoruby LoadGems has no `tag:` keyword — pin a tag via `branch:`, which is
-  # passed to `git clone --branch <ref>` (git accepts tag names there).
-  # The pure-Ruby stackchan-led / si12t gems are not wired here: the stackchan-picoruby
-  # Rakefile concatenates their mrblib into app.mrb.
-  conf.gem github: 'bash0C7/picoruby-ili9342',            branch: 'claude/aot-glyph16'
-  conf.gem github: 'bash0C7/picoruby-py32-io-expander',   branch: 'claude/simplify'
-  conf.gem github: 'bash0C7/picoruby-scservo',            branch: 'claude/simplify'
-  # picoruby-multicore, the AOT kernel gems, and the StackChan protocol gem
-  # come from stackchan-picoruby's own tree: multicore via
-  # STACKCHAN_MULTICORE_DIR, the rest via R2P2_GEM_DIRS.
-  conf.gem gemdir: ENV.fetch('STACKCHAN_MULTICORE_DIR')
-  ENV.fetch('R2P2_GEM_DIRS').split(':').each { |dir| conf.gem gemdir: dir }
+  ENV.fetch('R2P2_GEM_DIRS', '').split(':').each { |dir| conf.gem gemdir: dir }
 
   # others
   conf.gem core: 'picoruby-rmt'
-  # Generic I2S TX binding (esp_driver_i2s), StackChan speaker output.
   conf.gem core: 'picoruby-i2s'
   conf.gem core: 'picoruby-mbedtls'
   conf.gem core: 'picoruby-socket'
