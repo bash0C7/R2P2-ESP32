@@ -1,4 +1,8 @@
-set(PICORB_VM "mrubyc" CACHE STRING "Select build mode (mrubyc or mruby)")
+if(DEFINED ENV{PICORB_VM})
+  set(PICORB_VM "$ENV{PICORB_VM}" CACHE STRING "Select build mode (mrubyc or mruby)")
+else()
+  set(PICORB_VM "mrubyc" CACHE STRING "Select build mode (mrubyc or mruby)")
+endif()
 message(STATUS "PICORB_VM is set to: ${PICORB_VM}")
 
 file(MAKE_DIRECTORY ${COMPONENT_DIR}/picoruby/mrbgems/picoruby-mbedtls/lib/mbedtls/include)
@@ -43,6 +47,10 @@ else()
     -DMRC_CUSTOM_ALLOC
     -DPICORB_VM_MRUBYC
   )
+endif()
+
+if(DEFINED ENV{R2P2_BUILD_CONFIG})
+  set(MRUBY_CONFIG_STRING "$ENV{R2P2_BUILD_CONFIG}")
 endif()
 
 if(CONFIG_ESP_WIFI_ENABLED AND DEFINED ENV{USE_WIFI})
