@@ -133,6 +133,7 @@ idf_component_register(
     esp_driver_rmt
     esp_driver_pcnt
     esp_driver_i2c
+    esp_driver_i2s
     esp_adc
     esp_timer
     esp_hw_support
@@ -140,6 +141,7 @@ idf_component_register(
     nvs_flash
     esp_psram
     esp_driver_usb_serial_jtag
+    bt
 )
 
 add_definitions(
