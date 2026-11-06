@@ -4,7 +4,6 @@ require 'json'
 require 'digest'
 
 FLASH_BAUD = Integer(ENV.fetch('FLASH_BAUD', '460800'))
-STORAGE_OFFSET = 0x210000
 STORAGE_SIZE = 0x100000
 
 # Read from build/project_description.json rather than hardcoding, so this tracks whatever
@@ -122,6 +121,12 @@ rescue EspFlash::Error => e
   abort "Error: #{e.message}"
 end
 
+# Where the build puts storage.bin, which follows the partition table.
+def storage_offset
+  addr = flasher_args['flash_files'].key('storage.bin') or abort 'Error: the build flashes no storage.bin'
+  Integer(addr, 16)
+end
+
 # The image is padded with 0xff to the whole partition, which erases the rest of it.
 desc 'Erase storage partition and flash storage binary'
 task flash_storage: :esp_flash do
@@ -129,11 +134,11 @@ task flash_storage: :esp_flash do
   abort 'Error: storage.bin is larger than the storage partition' if storage.bytesize > STORAGE_SIZE
 
   with_loader(flash_port) do |loader|
-    loader.write_flash(STORAGE_OFFSET, storage + ("\xff".b * (STORAGE_SIZE - storage.bytesize)), name: 'storage.bin')
+    loader.write_flash(storage_offset, storage + ("\xff".b * (STORAGE_SIZE - storage.bytesize)), name: 'storage.bin')
   end
   # Keep the record of `rake flash` in sync with what is now on the device
   if (record = flashed_images)
-    record['images'][format('0x%x', STORAGE_OFFSET)] = Digest::SHA256.hexdigest(storage)
+    record['images'][format('0x%x', storage_offset)] = Digest::SHA256.hexdigest(storage)
     File.write(FLASHED_IMAGES_FILE, JSON.pretty_generate(record))
   end
 rescue EspFlash::Error => e
