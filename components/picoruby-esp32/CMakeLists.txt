@@ -150,6 +150,7 @@ add_definitions(
   -DUSE_FAT_FLASH_DISK
   -DPICORB_PLATFORM_ESP32
   -DNDEBUG
+  -DLFS_FLASH_TARGET_OFFSET=0x00410000
 )
 
 # Rebuild libmruby.a when the build config or a custom mrbgem (mrbgems/ at the project root) changes.
